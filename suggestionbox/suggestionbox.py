@@ -40,7 +40,7 @@ class SuggestionBox:
     """custom cog for a configureable suggestion box"""
 
     __author__ = "mikeshardmind"
-    __version__ = "1.5.0"
+    __version__ = "1.5.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -139,11 +139,17 @@ class SuggestionBox:
         await self.bot.say("I will message you to collect your suggestion.")
         self.settings[server.id]['usercache'].append(author.id)
         self.save_json()
-        dm = await self.bot.send_message(author,
-                                         "Please respond to this message"
-                                         "with your suggestion.\nYour "
-                                         "suggestion should be a single "
-                                         "message")
+        try:
+            dm = await self.bot.send_message(author,
+                                             "Please respond to this message"
+                                             "with your suggestion.\nYour "
+                                             "suggestion should be a single "
+                                             "message")
+        except discord.Forbidden:
+            self.settings[server.id]['usercache'].remove(author.id)
+            return await self.bot.say("Or not...(I can't)")
+        
+            
         message = await self.bot.wait_for_message(channel=dm.channel,
                                                   author=author, timeout=120)
 
