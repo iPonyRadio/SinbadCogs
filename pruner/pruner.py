@@ -49,7 +49,7 @@ class Pruner:
             timeout=45
         )
 
-        if message is not None and message.content == 'Yes':
+        if message is not None and message.content.lower() == 'yes':
             await self.bot.http.request(
                 discord.http.Route(
                     'POST', '/guilds/{guild_id}/prune',
