@@ -28,8 +28,7 @@ class ChainCom:
         """
         commands = [c.strip() for c in coms.split('|')]
         for com in commands:
-            if self.bot.get_command(com) is None:
-                continue
+
             data = \
                 {'timestamp': time.strftime("%Y-%m-%dT%H:%M:%S%z",
                                             time.gmtime()),
