@@ -50,7 +50,7 @@ class AutoRooms:
     auto spawn rooms
     """
     __author__ = "mikeshardmind (Sinbad#0001)"
-    __version__ = "5.1.0"
+    __version__ = "5.1.1"
 
     def __init__(self, bot: commands.bot):
         self.bot = bot
@@ -375,7 +375,7 @@ class AutoRooms:
             await self.bot.say("I can't wait forever, "
                                "I am not changing this setting")
         elif message.clean_content.lower()[:1] == '2':
-            [channel.id]['ownership'] \
+            self.settings[server.id]['chansettings'][channel.id]['ownership'] \
                 = True
         elif message.clean_content.lower()[:1] == '3':
             self.settings[server.id]['chansettings'][channel.id]['ownership'] \
