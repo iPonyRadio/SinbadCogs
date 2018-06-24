@@ -126,8 +126,7 @@ class ReportTool:
     @setreport.command(name="otherserveroutput", pass_context=True, no_pm=True)
     async def complexout(self, ctx, channel_id: str):
         """
-        This allows you to put the output for the current server
-        in another server.
+        puts the output for the current server in another server.
 
         This takes a channel ID
 
