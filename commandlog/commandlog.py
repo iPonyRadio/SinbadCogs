@@ -69,7 +69,8 @@ class CommandLog:
     @checks.is_owner()
     @commands.command(pass_context=True, name='getcmdlog')
     async def getlog(self, ctx):
-        await self.bot.upload(ctx.message.author, path + '/cmds.log')
+        with open(path + '/cmds.log', mode='rb') as f:
+            await self.bot.upload(ctx.message.author, f, filename='cmds.log')
 
 
 def setup(bot):
