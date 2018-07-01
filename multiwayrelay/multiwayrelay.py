@@ -16,7 +16,7 @@ class MultiWayRelay:
     """
 
     __author__ = "mikeshardmind (Sinbad#0001)"
-    __version__ = "2.2.0"
+    __version__ = "2.2.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -88,7 +88,7 @@ class MultiWayRelay:
         if name not in self.settings:
             return await self.bot.say("that relay doesnt exist")
 
-        chanids += self.settings[name]['chans']
+        chanids = list(chanids) + self.settings[name]['chans']
         channels = self.bot.get_all_channels()
         channels = [c for c in channels if c.type == discord.ChannelType.text]
         channels = [c.id for c in channels if c.id in chanids]
