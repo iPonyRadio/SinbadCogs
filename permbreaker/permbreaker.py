@@ -42,7 +42,7 @@ class PermBreaker:
 
     @pbreak.group(name='role', pass_context=True)
     async def pbreak_role(self, ctx):
-        """"
+        """
         role specific settings
         """
         if ctx.invoked_subcommand is None:
