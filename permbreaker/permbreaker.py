@@ -13,9 +13,12 @@ class PermBreaker:
     """
     cog for allowing bypass of checks on commands on a user by user basis
     This has security implications, use with care
+
+    Multiword commands will only work if you unrestrict the group too, this however may
+    not be safe without rerestricting the non-wanted commands with other cogs
     """
 
-    __version__ = "1.0.0"
+    __version__ = "1.0.1"
     __author__ = "mikeshardmind (Sinbad#0001)"
 
     def __init__(self, bot):
