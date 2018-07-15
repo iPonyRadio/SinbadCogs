@@ -98,7 +98,7 @@ class BanSync:
                     if member.top_role >= server.me.top_role:
                         await self.bot.whisper(
                             (
-                                "{0.mention} from {0.guild.name} "
+                                "{0.mention} from {0.server.name} "
                                 "has a higher top role than me, skipping."
                             ).format(member)
                         )
@@ -108,8 +108,9 @@ class BanSync:
                     except discord.Forbidden:
                         await self.bot.whisper(
                             (
-                                "I couldn't ban {0.mention} from {0.guild.name}"
-                                "This appears to be due to hierarchy, so I'll continue with others."
+                                "I couldn't ban {0.mention} from {0.server.name}"
+                                "This appears to be due to hierarchy, "
+                                "so I'll continue with others."
                             ).format(member)
                         )
                     else:
