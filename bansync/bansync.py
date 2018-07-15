@@ -13,7 +13,7 @@ class BanSync:
     Syncs bans between servers
     """
 
-    __version__ = "1.1.0"
+    __version__ = "1.2.0"
     __author__ = "mikeshardmind (Sinbad#0001)"
 
     def __init__(self, bot):
