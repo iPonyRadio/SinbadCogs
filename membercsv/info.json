@@ -1,6 +1,6 @@
 {
     "AUTHOR": "mikeshardmind (Sinbad#0001)",
-    "INSTALL_MSG": "This can be a little slow, be patient",
+    "INSTALL_MSG": "This can be a little slow, be patient, it might also break on large servers, the V3 version cog does not have this issue.",
     "NAME": "MemberCSV",
     "SHORT": "gets a csv of member data",
     "DESCRIPTION": "Joined date, highest role, status, etc as csv"
