@@ -50,7 +50,7 @@ class AutoRooms:
     auto spawn rooms
     """
     __author__ = "mikeshardmind (Sinbad#0001)"
-    __version__ = "5.1.1"
+    __version__ = "5.1.3"
 
     def __init__(self, bot: commands.bot):
         self.bot = bot
@@ -59,8 +59,10 @@ class AutoRooms:
             self.settings = dataIO.load_json(path + '/settings.json')
         except Exception:
             self.settings = {}
-        self._resume()
+        else:
+            self._resume()
         self._event_lock = asyncio.Lock()
+        log.info('AutoRooms succesfully loaded.')
 
     def save_json(self):
         dataIO.save_json(path + '/settings.json', self.settings)
@@ -74,19 +76,10 @@ class AutoRooms:
             server = self.bot.get_server(server_id)
             if server is None:
                 continue
-            for entry in self.settings[server.id]['clones']:
-                channel = self.bot.get_channel(entry)
-                if channel is None:
-                    rem_list.append(entry)
-                    continue
-                else:
-                    self.settings[server.id]['clones'].append(channel.id)
-                    self.save_json()
-            self.settings[server.id]['clones'] = [
-                entry for entry in self.settings[server.id]['clones']
-                if entry not in rem_list
-            ]
-            self.save_json()
+            self.settings[server.id]['clones'] = list(
+                set(self.settings[server.id]['clones']) & set([c.id for c in server.channels])
+            )
+        self.save_json()
 
     async def _clone_channel(
             self, origin: discord.Channel, new_name: str, *overwrites):
@@ -136,8 +129,9 @@ class AutoRooms:
                     guild_id=origin.server.id), json=payload)
         return discord.Channel(server=origin.server, **new_channeldata)
 
-    async def _autorooms(self, memb_before: discord.Member,
-                         memb_after: discord.Member):
+    async def on_voice_state_update(
+        self, memb_before: discord.Member, memb_after: discord.Member
+    ):
         """
         Detect voice state changes, and call the appropriate functions
         based on the change
@@ -495,5 +489,4 @@ class AutoRooms:
 def setup(bot):
     pathlib.Path(path).mkdir(parents=True, exist_ok=True)
     n = AutoRooms(bot)
-    bot.add_listener(n._autorooms, 'on_voice_state_update')
     bot.add_cog(n)
