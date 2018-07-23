@@ -59,8 +59,9 @@ class AutoRooms:
             self.settings = dataIO.load_json(path + '/settings.json')
         except Exception:
             self.settings = {}
+            self._resumed = True
         else:
-            self._resume()
+            self._resumed = False
         self._event_lock = asyncio.Lock()
         log.info('AutoRooms succesfully loaded.')
 
@@ -80,6 +81,7 @@ class AutoRooms:
                 set(self.settings[server.id]['clones']) & set([c.id for c in server.channels])
             )
         self.save_json()
+        self._resumed = True
 
     async def _clone_channel(
             self, origin: discord.Channel, new_name: str, *overwrites):
@@ -136,6 +138,8 @@ class AutoRooms:
         Detect voice state changes, and call the appropriate functions
         based on the change
         """
+        if not self._resumed:
+            self._resume()
 
         if memb_after.voice.voice_channel == memb_before.voice.voice_channel:
             # We don't care if the channel they are in hasn't changed
