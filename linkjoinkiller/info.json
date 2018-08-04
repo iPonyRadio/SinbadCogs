@@ -1,0 +1,7 @@
+{
+    "AUTHOR": "mikeshardmind (Sinbad#0001)",
+    "INSTALL_MSG": "Kills users joining with an invite link in name, no server specific settings, load at own risk.",
+    "NAME": "LinkJoinKiller",
+    "SHORT": "Kills users joining with an invite link in name",
+    "DESCRIPTION": "Kills users joining with an invite link in name"
+}
