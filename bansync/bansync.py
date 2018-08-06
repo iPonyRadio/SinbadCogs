@@ -13,15 +13,15 @@ class BanSync:
     Syncs bans between servers
     """
 
-    __version__ = "1.2.2"
+    __version__ = "1.3.0"
     __author__ = "mikeshardmind (Sinbad#0001)"
 
     def __init__(self, bot):
         self.bot = bot
         self.modlog = self.bot.get_cog("Mod")
 
-
-    @checks.is_owner(hidden=True, pass_context=True)
+    @checks.is_owner()
+    @commands.command(hidden=True, pass_context=True)
     async def bulkban(self, ctx, *users):
         """
         Use at own risk, attempts to globalban a large user list
