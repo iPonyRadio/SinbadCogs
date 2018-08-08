@@ -73,10 +73,6 @@ class AutoRooms:
         handle getting state info on cog load
         """
         for server_id in self.settings:
-            rem_list = []
-            server = self.bot.get_server(server_id)
-            if server is None:
-                continue
             self.settings[server.id]['clones'] = list(
                 set(self.settings[server.id]['clones']) & set([c.id for c in server.channels])
             )
