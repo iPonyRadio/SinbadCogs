@@ -50,7 +50,7 @@ class AutoRooms:
     auto spawn rooms
     """
     __author__ = "mikeshardmind (Sinbad#0001)"
-    __version__ = "5.1.3"
+    __version__ = "5.1.4"
 
     def __init__(self, bot: commands.bot):
         self.bot = bot
@@ -277,7 +277,7 @@ class AutoRooms:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @checks.admin_or_permissions(Manage_channels=True)
+    @checks.admin_or_permissions(manage_channels=True)
     @autoroomset.command(name="prepend", pass_context=True, no_pm=True)
     async def setprepend(self, ctx, prepend: str=""):
         """
@@ -295,7 +295,7 @@ class AutoRooms:
         self.save_json()
         await self.bot.say("Prepend set.")
 
-    @checks.admin_or_permissions(Manage_channels=True)
+    @checks.admin_or_permissions(manage_channels=True)
     @autoroomset.command(name="channelsettings", pass_context=True, no_pm=True)
     async def setchannelsettings(self, ctx, channel: discord.Channel):
         """
@@ -385,7 +385,7 @@ class AutoRooms:
         self.save_json()
         await self.bot.say("Channel specific settings have been updated")
 
-    @checks.admin_or_permissions(Manage_channels=True)
+    @checks.admin_or_permissions(manage_channels=True)
     @autoroomset.command(name="toggleactive", pass_context=True, no_pm=True)
     async def autoroomtoggle(self, ctx):
         """
@@ -403,7 +403,7 @@ class AutoRooms:
             await self.bot.say('Auto Rooms enabled.')
         self.save_json()
 
-    @checks.admin_or_permissions(Manage_channels=True)
+    @checks.admin_or_permissions(manage_channels=True)
     @autoroomset.command(name="makeclone", pass_context=True, no_pm=True)
     async def makeclone(self, ctx, channel: discord.Channel):
         """Takes a channel, turns that voice channel into a clone source"""
@@ -425,7 +425,7 @@ class AutoRooms:
         else:
             await self.bot.say("That isn't a voice channel.")
 
-    @checks.admin_or_permissions(Manage_channels=True)
+    @checks.admin_or_permissions(manage_channels=True)
     @autoroomset.command(name="remclone", pass_context=True, no_pm=True)
     async def remclone(self, ctx, channel: discord.Channel):
         """Takes a channel, removes that channel from the clone list"""
@@ -442,7 +442,7 @@ class AutoRooms:
                                "\nHint: Use {}autoroomset listclones "
                                "for a current list.".format(prefix))
 
-    @checks.admin_or_permissions(Manage_channels=True)
+    @checks.admin_or_permissions(manage_channels=True)
     @autoroomset.command(name="listautorooms", pass_context=True, no_pm=True)
     async def listclones(self, ctx):
         """Lists the current autorooms"""
@@ -470,7 +470,7 @@ class AutoRooms:
             channels.remove(c)
             self.save_json
 
-    @checks.admin_or_permissions(Manage_channels=True)
+    @checks.admin_or_permissions(manage_channels=True)
     @autoroomset.command(name="toggleowner", pass_context=True, no_pm=True)
     async def toggleowner(self, ctx):
         """toggles if the creator of the autoroom owns it
