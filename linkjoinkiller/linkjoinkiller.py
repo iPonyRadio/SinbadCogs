@@ -7,7 +7,7 @@ class LinkJoinKiller:
     """
 
     __author__ = "mikeshardmind(Sinbad#0001)"
-    __version__ = '0.0.1a'
+    __version__ = '0.0.2'
 
     def __init__(self, bot):
         self.regex = re.compile(
@@ -19,7 +19,7 @@ class LinkJoinKiller:
         if not member.server.me.server_permissions.ban_members:
             return
         if self.regex.search(str(member)) is not None:
-            await self.bot.http.ban(member.id, server.id, 0)
+            await self.bot.http.ban(member.id, member.server.id, 0)
 
 
 def setup(bot):
