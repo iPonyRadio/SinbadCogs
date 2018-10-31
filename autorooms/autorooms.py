@@ -50,7 +50,7 @@ class AutoRooms:
     auto spawn rooms
     """
     __author__ = "mikeshardmind (Sinbad#0001)"
-    __version__ = "5.1.4"
+    __version__ = "5.1.5"
 
     def __init__(self, bot: commands.bot):
         self.bot = bot
@@ -73,6 +73,9 @@ class AutoRooms:
         handle getting state info on cog load
         """
         for server_id in self.settings:
+            server = discord.utils.get(self.bot.servers, id=server_id)
+            if server is None:
+                continue
             self.settings[server.id]['clones'] = list(
                 set(self.settings[server.id]['clones']) & set([c.id for c in server.channels])
             )
