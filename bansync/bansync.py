@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 from .utils import checks
 from cogs.utils.chat_formatting import box, pagify
-from typing import Union
 
 path = "data/bansync"
 
@@ -13,7 +12,7 @@ class BanSync:
     Syncs bans between servers
     """
 
-    __version__ = "1.3.0"
+    __version__ = "1.3.1"
     __author__ = "mikeshardmind (Sinbad#0001)"
 
     def __init__(self, bot):
@@ -30,21 +29,27 @@ class BanSync:
         com =  self.bot.get_command('globalban')
         for user in users:
             try:
-                await com.callback(com.instance, ctx, user)
+                await com.callback(com.instance, ctx, user=user)
             except:
                 pass
 
 
     @checks.is_owner()
     @commands.command(name="globalban", pass_context=True)
-    async def globalban(self, ctx, user: Union[discord.Member, str]):
+    async def globalban(self, ctx, *, user):
         """
         ban someone in each server the bot can ban
         """
-        if isinstance(user, discord.Member):
-            _id = user.id
+
+        try:
+            _u = commands.converter.MemberConverter().convert(ctx, user)
+        except commands.BadArgument:
+            try:
+                _id = str(int(user))  # This is a messy thing, sorry
+            except ValueError:
+                raise commands.BadArgument('Invalid user')
         else:
-            _id = user
+            _id = _u.id
 
         for server in self.bot.servers:
             if not server.me.server_permissions.ban_members:
@@ -105,7 +110,7 @@ class BanSync:
 
         for server in servers:
             to_ban = []
-            for k, v in bans.items():
+            for _k, v in bans.items():
                 to_ban.extend([m for m in v if m not in bans[server.id]])
             for user in to_ban:
                 member = server.get_member(user.id)
