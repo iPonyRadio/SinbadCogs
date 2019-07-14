@@ -591,11 +591,31 @@ class Scheduler(commands.Cog):
             recur=None,
         )
 
+        mute_task_2 = Task(
+            uid=f"muterole-{ctx.message.id}",
+            nicename=f"muterole-{ctx.message.id}",
+            author=ctx.author,
+            content=f"addrole nadeko-mute {user.id}",
+            channel=ctx.channel,
+            initial=now,
+            recur=None,
+        )
+
         unmute_task = Task(
             uid=f"unmute-{ctx.message.id}",
             nicename=f"unmute-{ctx.message.id}",
             author=ctx.author,
-            content=f"unmute server {user.id} Scheduler: Scheduled Unmute",
+            content=f"unmute server {user.id} Scheduler: Scheduled Unmute - {reason}",
+            channel=ctx.channel,
+            initial=unmute_time,
+            recur=None,
+        )
+
+        unmute_task_2 = Task(
+            uid=f"unmuterole-{ctx.message.id}",
+            nicename=f"unmuterole-{ctx.message.id}",
+            author=ctx.author,
+            content=f"removerole nadeko_mute {user.id}",
             channel=ctx.channel,
             initial=unmute_time,
             recur=None,
@@ -606,6 +626,14 @@ class Scheduler(commands.Cog):
                 self.delayed_wrap_and_invoke(mute_task, 0)
             )
 
+            self.scheduled[mute_task_2.uid] = asyncio.create_task(
+                self.delayed_wrap_and_invoke(mute_task_2, 0)
+            )
+            
             async with self.config.channel(ctx.channel).tasks() as tsks:
                 tsks.update(unmute_task.to_config())
             self.tasks.append(unmute_task)
+
+            async with self.config.channel(ctx.channel).tasks() as tsks:
+                tsks.update(unmute_task_2.to_config())
+            self.tasks.append(unmute_task_2)
