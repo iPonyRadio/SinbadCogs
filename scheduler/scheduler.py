@@ -615,7 +615,7 @@ class Scheduler(commands.Cog):
             uid=f"unmuterole-{ctx.message.id}",
             nicename=f"unmuterole-{ctx.message.id}",
             author=ctx.author,
-            content=f"removerole nadeko_mute {user.id}",
+            content=f"removerole nadeko-mute {user.id}",
             channel=ctx.channel,
             initial=unmute_time,
             recur=None,
