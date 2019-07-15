@@ -31,12 +31,13 @@ def embed_from_msg(message: discord.Message) -> discord.Embed:
     avatar = author.avatar_url
     author_name = author.name
     message_url = message.jump_url
+    content = content + f"\n[Jump]({message.jump_url})"
     footer = f"Said in {guild.name} #{channel.name}"
     try:
         color = author.color if author.color.value != 0 else discord.Embed.Empty
     except AttributeError:  # happens if message author not in guild anymore.
         color = discord.Embed.Empty
-    em = discord.Embed(description=content, color=color, timestamp=message.created_at)
+    em = discord.Embed(description=content , color=color, timestamp=message.created_at)
     #title=author_name, url=message_url, 
     em.set_thumbnail(url=avatar)
     em.set_author(name=f"{author.name}")
@@ -51,11 +52,6 @@ def embed_from_msg(message: discord.Message) -> discord.Embed:
             em.add_field(
                 name="Message has an attachment", value=f"[{fname}]({url})", inline=True
             )
-    em.add_field(
-        name=Empty,
-        value=f"[Jump]({message.jump_url})",
-        inline=False,
-    )
     return em
 
 
