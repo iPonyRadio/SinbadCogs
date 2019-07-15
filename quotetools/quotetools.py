@@ -64,8 +64,7 @@ class QuoteTools(commands.Cog):
             if await ctx.embed_requested():
                 em = embed_from_msg(m)
                 await ctx.send(embed=em)
-                try:
-                    await ctx.message.delete()
+                await ctx.message.delete()
             else:
                 msg1 = "\n".join(
                     [
@@ -79,5 +78,4 @@ class QuoteTools(commands.Cog):
                 else:
                     await ctx.send(msg1)
                     await ctx.send(m.clean_content)
-                try:
-                    await ctx.message.delete()
+                await ctx.message.delete()
