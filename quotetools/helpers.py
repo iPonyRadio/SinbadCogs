@@ -29,12 +29,14 @@ def embed_from_msg(message: discord.Message) -> discord.Embed:
     content = role_mention_cleanup(message)
     author = message.author
     avatar = author.avatar_url
+    author_name = author.name
+    message_url = message.jump_url
     footer = f"Said in {guild.name} #{channel.name}"
     try:
         color = author.color if author.color.value != 0 else discord.Embed.Empty
     except AttributeError:  # happens if message author not in guild anymore.
         color = discord.Embed.Empty
-    em = discord.Embed(title="{author.name}", url="{message.jump_url}", description=content, color=color, timestamp=message.created_at)
+    em = discord.Embed(title=author_name, url=message_url, description=content, color=color, timestamp=message.created_at)
     em.set_thumbnail(url=avatar)
     em.set_footer(icon_url=guild.icon_url, text=footer)
     if message.attachments:
