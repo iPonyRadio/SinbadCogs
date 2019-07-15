@@ -38,8 +38,8 @@ def embed_from_msg(message: discord.Message) -> discord.Embed:
         color = discord.Embed.Empty
     em = discord.Embed(description=content, color=color, timestamp=message.created_at)
     #title=author_name, url=message_url, 
-    #em.set_thumbnail(url=avatar)
-    em.set_author(name=f"{author.name}", icon_url=avatar, url=message_url)
+    em.set_thumbnail(url=avatar)
+    em.set_author(name=f"{author.name}")
     em.set_footer(icon_url=guild.icon_url, text=footer)
     if message.attachments:
         a = message.attachments[0]
@@ -51,6 +51,10 @@ def embed_from_msg(message: discord.Message) -> discord.Embed:
             em.add_field(
                 name="Message has an attachment", value=f"[{fname}]({url})", inline=True
             )
+    em.add_field(
+        value=f"[Jump]({message.jump_url})",
+        inline=False,
+    )
     return em
 
 
