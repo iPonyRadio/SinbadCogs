@@ -52,7 +52,8 @@ def embed_from_msg(message: discord.Message) -> discord.Embed:
                 name="Message has an attachment", value=f"[{fname}]({url})", inline=True
             )
     em.add_field(
-        name=f"[Jump]({message.jump_url})",
+        name=,
+        value=f"[Jump]({message.jump_url})",
         inline=False,
     )
     return em
