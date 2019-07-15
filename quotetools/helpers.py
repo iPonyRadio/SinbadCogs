@@ -35,7 +35,8 @@ def embed_from_msg(message: discord.Message) -> discord.Embed:
     except AttributeError:  # happens if message author not in guild anymore.
         color = discord.Embed.Empty
     em = discord.Embed(title="{author.name}", url="{message.jump_url}", description=content, color=color, timestamp=message.created_at)
-    em.set_thumbnail(avatar)
+    em.set_thumbnail(url=avatar)
+    em.set_image(url=avatar)
     em.set_footer(icon_url=guild.icon_url, text=footer)
     if message.attachments:
         a = message.attachments[0]
